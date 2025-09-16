@@ -33,29 +33,29 @@ CREATE OR REPLACE GIT REPOSITORY GIT_INTEGRATION_FOR_HANDSON
   ORIGIN = 'https://github.com/snow-jp-handson-org-partner/cortex-handson-jp-for-partner.git';
 
 -- チェックする
-ls @GIT_INTEGRATION_FOR_HANDSON/branches/main;
+ls @GIT_INTEGRATION_FOR_HANDSON/branches/pub_20250917;
 
 -- Githubからファイルを持ってくる
-COPY FILES INTO @SNOWRETAIL_DB.SNOWRETAIL_SCHEMA.FILE FROM @GIT_INTEGRATION_FOR_HANDSON/branches/main/data/;
-COPY FILES INTO @SNOWRETAIL_DB.SNOWRETAIL_SCHEMA.SEMANTIC_MODEL_STAGE FROM @GIT_INTEGRATION_FOR_HANDSON/branches/main/handson2/sales_analysis_model.yaml;
+COPY FILES INTO @SNOWRETAIL_DB.SNOWRETAIL_SCHEMA.FILE FROM @GIT_INTEGRATION_FOR_HANDSON/branches/pub_20250917/data/;
+COPY FILES INTO @SNOWRETAIL_DB.SNOWRETAIL_SCHEMA.SEMANTIC_MODEL_STAGE FROM @GIT_INTEGRATION_FOR_HANDSON/branches/pub_20250917/handson2/sales_analysis_model.yaml;
 
 // Step4: NotebookとStreamlitを作成 //
 
 -- Notebookの作成
 CREATE OR REPLACE NOTEBOOK cortex_handson_part1
-    FROM @GIT_INTEGRATION_FOR_HANDSON/branches/main/handson1
+    FROM @GIT_INTEGRATION_FOR_HANDSON/branches/pub_20250917/handson1
     MAIN_FILE = 'cortex_handson_seminar_part1.ipynb'
     QUERY_WAREHOUSE = COMPUTE_WH
     WAREHOUSE = COMPUTE_WH;
 
 -- Streamlit in Snowflakeの作成
 CREATE OR REPLACE STREAMLIT sis_snowretail_analysis_dev
-    FROM @GIT_INTEGRATION_FOR_HANDSON/branches/main/handson2/dev
+    FROM @GIT_INTEGRATION_FOR_HANDSON/branches/pub_20250917/handson2/dev
     MAIN_FILE = 'mainpage.py'
     QUERY_WAREHOUSE = COMPUTE_WH;
 
 -- (Option) MVP版のStreamlit in Snowflakeの作成
 -- CREATE OR REPLACE STREAMLIT sis_snowretail_analysis_mvp
---     FROM @GIT_INTEGRATION_FOR_HANDSON/branches/main/handson2/mvp
+--     FROM @GIT_INTEGRATION_FOR_HANDSON/branches/pub_20250917/handson2/mvp
 --     MAIN_FILE = 'mainpage.py'
 --     QUERY_WAREHOUSE = COMPUTE_WH;
