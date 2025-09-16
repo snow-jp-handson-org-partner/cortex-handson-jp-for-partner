@@ -153,7 +153,7 @@ GROUP BY purchase_channel;
 -- =========================================================
 
 -- AI_COMPLETE関数によるチャットボット応答
-SELECT AI_COMPLETE('openai-gpt-4.1', 'Snowflakeの特徴を端的に教えてください。');
+SELECT AI_COMPLETE('claude-4-sonnet', 'Snowflakeの特徴を端的に教えてください。');
 
 -- ※ハンズオン※
 -- Streamlitの50行目付近の『★★★修正対象★★★』を書き換えてみましょう
